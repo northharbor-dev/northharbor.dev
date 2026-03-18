@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title and page.title != site.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="description" content="{{ site.description }}">
+    <link rel="icon" href="{{ '/assets/beacon-network-favicon.svg' | relative_url }}" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+  </head>
+  <body>
+    <header class="site-shell">
+      <div class="site-nav">
+        <a class="site-brand" href="{{ '/' | relative_url }}">
+          <img class="site-brand__mark" src="{{ '/assets/beacon-network-favicon.svg' | relative_url }}" alt="NorthHarbor beacon mark">
+          <span>NorthHarbor<span class="site-brand__suffix">Dev</span></span>
+        </a>
+        <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+        </button>
+        <div id="nav-menu" class="nav-collapse">
+          <nav class="site-links" aria-label="Primary">
+            <a href="{{ '/' | relative_url }}" {% if page.url == "/" %}class="is-current"{% endif %}>Home</a>
+            <a href="{{ '/about' | relative_url }}" {% if page.url == "/about.html" or page.url == "/about/" %}class="is-current"{% endif %}>About</a>
+            <a href="https://github.com/northharbor-dev" rel="noopener noreferrer">GitHub</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      {% if page.url == "/" %}
+      <div class="home-prose">
+        {{ content }}
+      </div>
+      {% else %}
+      <div class="page-prose">
+        <section class="doc-hero">
+          <h1>{{ page.title }}</h1>
+          {% if page.deck %}
+          <p class="doc-hero__deck">{{ page.deck }}</p>
+          {% endif %}
+        </section>
+        {{ content }}
+      </div>
+      {% endif %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p>NorthHarbor Development &middot; <a href="https://github.com/northharbor-dev" rel="noopener noreferrer">GitHub</a> &middot; <a href="https://www.linkedin.com/company/northharbor" rel="noopener noreferrer">LinkedIn</a></p>
+      </div>
+    </footer>
+
+    <script>
+      (() => {
+        const navToggle = document.querySelector(".nav-toggle");
+        const navMenu = document.getElementById("nav-menu");
+        const siteShell = document.querySelector(".site-shell");
+        if (navToggle && navMenu && siteShell) {
+          navToggle.addEventListener("click", () => {
+            const open = siteShell.classList.toggle("nav-open");
+            navToggle.setAttribute("aria-expanded", open);
+            navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+          });
+          navMenu.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => {
+              siteShell.classList.remove("nav-open");
+              navToggle.setAttribute("aria-expanded", "false");
+              navToggle.setAttribute("aria-label", "Open menu");
+            });
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

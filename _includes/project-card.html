@@ -1,0 +1,5 @@
+<a class="card" href="{{ include.url }}" {% if include.external %}rel="noopener noreferrer"{% endif %}>
+  <h3>{{ include.name }}</h3>
+  {% if include.badge %}<span class="card__badge">{{ include.badge }}</span>{% endif %}
+  <p>{{ include.description }}</p>
+</a>

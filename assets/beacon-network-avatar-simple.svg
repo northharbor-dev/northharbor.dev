@@ -1,0 +1,43 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="256" y1="24" x2="256" y2="488" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#08152E"/>
+      <stop offset="1" stop-color="#030B1A"/>
+    </linearGradient>
+    <linearGradient id="tower" x1="224" y1="172" x2="288" y2="314" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#96F0FF"/>
+      <stop offset="0.55" stop-color="#60C7FF"/>
+      <stop offset="1" stop-color="#2757D0"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+
+  <path d="M118 334C168 228 344 228 394 334" stroke="#61D5FF" stroke-width="4" stroke-opacity="0.55"/>
+  <path d="M160 312L212 270L256 238L304 270L352 312" stroke="#45C1FF" stroke-width="2.5" stroke-opacity="0.5"/>
+
+  <g fill="#DDF9FF" filter="url(#glow)">
+    <circle cx="118" cy="334" r="5"/>
+    <circle cx="160" cy="312" r="4.5"/>
+    <circle cx="212" cy="270" r="5"/>
+    <circle cx="256" cy="238" r="5"/>
+    <circle cx="304" cy="270" r="5"/>
+    <circle cx="352" cy="312" r="4.5"/>
+    <circle cx="394" cy="334" r="5"/>
+  </g>
+
+  <path d="M222 308L236 176H276L290 308H222Z" fill="url(#tower)" stroke="#B6F3FF" stroke-width="2"/>
+  <rect x="232" y="156" width="48" height="20" rx="6" fill="#8FE8FF" stroke="#F1FDFF" stroke-width="2"/>
+  <path d="M256 142L270 120L256 90L242 120L256 142Z" fill="#FFF4C8" filter="url(#glow)"/>
+  <path d="M268 156L376 132" stroke="#C4F2FF" stroke-width="10" stroke-linecap="round" stroke-opacity="0.35"/>
+
+  <path d="M188 364L254 318L326 338L260 384L188 364Z" fill="#5AC5FF" opacity="0.92"/>
+  <path d="M118 402H394" stroke="#66D6FF" stroke-width="3" stroke-opacity="0.4"/>
+</svg>

@@ -1,0 +1,12 @@
+title: NorthHarbor Development
+description: Open source projects from NorthHarbor — principled tools for human-AI collaboration.
+baseurl: ""
+url: "https://northharbor.dev"
+plugins:
+  - jekyll-feed
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
