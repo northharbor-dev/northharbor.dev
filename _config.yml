@@ -1,7 +1,7 @@
 title: NorthHarbor Development
 description: Open source projects from NorthHarbor — principled tools for human-AI collaboration.
-baseurl: "/northharbor.dev"
-url: "https://northharbor-dev.github.io"
+baseurl: ""
+url: "https://northharbor.dev"
 plugins:
   - jekyll-feed
 
