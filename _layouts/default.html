@@ -10,6 +10,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+    <script>
+      (() => {
+        try {
+          const savedSize = localStorage.getItem("nhdev-text-size");
+          document.documentElement.setAttribute("data-text-size", savedSize || "comfortable");
+          const savedWidth = localStorage.getItem("nhdev-page-width");
+          document.documentElement.setAttribute("data-page-width", savedWidth || "current");
+        } catch (_) {}
+      })();
+    </script>
   </head>
   <body>
     <header class="site-shell">
@@ -33,6 +43,25 @@
       </div>
     </header>
 
+    <div class="reading-controls-wrap">
+      <button type="button" class="reading-controls-toggle" aria-label="Reading options" aria-expanded="false" aria-controls="reading-panel">
+        <svg aria-hidden="true" width="10" height="14" viewBox="0 0 10 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 2h8M1 7h8M1 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <div id="reading-panel" class="reading-controls">
+        <div class="text-size-control" aria-label="Text size selector">
+          <span class="text-size-control__label">Text</span>
+          <button type="button" class="text-size-control__button" data-size="compact" aria-label="Compact text size">A</button>
+          <button type="button" class="text-size-control__button" data-size="comfortable" aria-label="Comfortable text size">A</button>
+          <button type="button" class="text-size-control__button" data-size="large" aria-label="Large text size">A</button>
+        </div>
+        <div class="page-width-control" aria-label="Page width selector">
+          <span class="page-width-control__label">Width</span>
+          <button type="button" class="page-width-control__button" data-width="current" aria-label="Current width">Current</button>
+          <button type="button" class="page-width-control__button" data-width="wide" aria-label="Wide width">Wide</button>
+        </div>
+      </div>
+    </div>
+
     <main class="page-shell">
       {% if page.url == "/" %}
       <div class="home-prose">
@@ -54,12 +83,15 @@
     <footer class="site-footer">
       <div class="site-footer__inner">
         <p>NorthHarbor Development &middot; <a href="https://github.com/northharbor-dev" rel="noopener noreferrer">GitHub</a> &middot; <a href="https://www.linkedin.com/company/northharbor" rel="noopener noreferrer">LinkedIn</a></p>
-        <p class="site-footer__sponsor">Sponsored by <a href="https://northharbor.ai" rel="noopener noreferrer">NorthHarbor AI</a></p>
+        <p class="site-footer__sponsor">Sponsored by <a href="https://northharbor.ai" rel="noopener noreferrer"><img class="site-footer__sponsor-icon" src="{{ '/assets/northharbor-ai-icon.png' | relative_url }}" alt="NorthHarbor AI"><span class="site-footer__sponsor-text"><span class="site-footer__sponsor-north">North</span><span class="site-footer__sponsor-harbor">Harbor</span> <span class="site-footer__sponsor-ai">AI</span></span></a></p>
       </div>
     </footer>
 
     <script>
       (() => {
+        const root = document.documentElement;
+
+        // Nav toggle
         const navToggle = document.querySelector(".nav-toggle");
         const navMenu = document.getElementById("nav-menu");
         const siteShell = document.querySelector(".site-shell");
@@ -75,6 +107,38 @@
               navToggle.setAttribute("aria-expanded", "false");
               navToggle.setAttribute("aria-label", "Open menu");
             });
+          });
+        }
+
+        // Reading controls — text size
+        const sizeButtons = document.querySelectorAll(".text-size-control__button");
+        const applySize = (size) => {
+          root.setAttribute("data-text-size", size);
+          sizeButtons.forEach((btn) => btn.classList.toggle("is-active", btn.dataset.size === size));
+          try { localStorage.setItem("nhdev-text-size", size); } catch (_) {}
+        };
+        applySize(root.getAttribute("data-text-size") || "comfortable");
+        sizeButtons.forEach((btn) => btn.addEventListener("click", () => applySize(btn.dataset.size)));
+
+        // Reading controls — page width
+        const widthButtons = document.querySelectorAll(".page-width-control__button");
+        const applyWidth = (width) => {
+          root.setAttribute("data-page-width", width);
+          widthButtons.forEach((btn) => btn.classList.toggle("is-active", btn.dataset.width === width));
+          try { localStorage.setItem("nhdev-page-width", width); } catch (_) {}
+        };
+        applyWidth(root.getAttribute("data-page-width") || "current");
+        widthButtons.forEach((btn) => btn.addEventListener("click", () => applyWidth(btn.dataset.width)));
+
+        // Reading controls — panel toggle
+        const readingToggle = document.querySelector(".reading-controls-toggle");
+        const readingPanel = document.getElementById("reading-panel");
+        const readingWrap = document.querySelector(".reading-controls-wrap");
+        if (readingToggle && readingPanel && readingWrap) {
+          readingToggle.addEventListener("click", () => {
+            const open = readingWrap.classList.toggle("reading-open");
+            readingToggle.setAttribute("aria-expanded", open);
+            readingToggle.setAttribute("aria-label", open ? "Collapse reading options" : "Expand reading options");
           });
         }
       })();
