@@ -441,6 +441,8 @@ strong {
   transition: color 140ms ease, background 140ms ease, border-color 140ms ease;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
   flex-shrink: 0;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .reading-controls-toggle:hover,
@@ -465,6 +467,7 @@ strong {
   pointer-events: none;
   transform: translateX(-8px);
   transition: opacity 0.18s ease, transform 0.18s ease;
+  max-width: calc(100vw - 20px);
 }
 
 .reading-controls-wrap.reading-open .reading-controls {
@@ -505,6 +508,8 @@ strong {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   cursor: pointer;
   transition: background 140ms ease, color 140ms ease;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .text-size-control__button:nth-of-type(1) { font-size: 0.84rem; }
@@ -534,6 +539,8 @@ strong {
   font-size: 0.82rem;
   cursor: pointer;
   transition: background 140ms ease, color 140ms ease;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 @media (pointer: coarse) {
