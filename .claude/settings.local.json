@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/bhong/.agents/skills/playwright/**)",
+      "Bash(node -e \"require\\(''./lib/helpers''\\).detectDevServers\\(\\).then\\(servers => console.log\\(JSON.stringify\\(servers\\)\\)\\)\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4000)",
+      "Bash(node run.js \":*)",
+      "Bash(curl -s http://localhost:4000)",
+      "Bash(bundle exec:*)",
+      "Bash(pkill -f \"jekyll serve\")",
+      "Bash(pkill -f 'jekyll serve')",
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4445)"
+    ]
+  }
+}
