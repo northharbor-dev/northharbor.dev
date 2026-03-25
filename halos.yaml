@@ -1,0 +1,133 @@
+# HALOS Governance Profile
+# See: https://github.com/northharbor-dev/halos-spec/blob/main/adopt/GUIDE.md
+# Schema: spec/schema/halos-profile.schema.json
+
+apiVersion: halos.northharbor.dev/v1alpha1
+kind: HalosProfile
+
+metadata:
+  name: northharbor-dev-web
+  description: >
+    HALOS governance profile for the northharbor.dev public website — a Jekyll
+    static site that serves as the official home for NorthHarbor Development and
+    its HALOS project. As the public face of a human-AI collaboration framework,
+    this repository is expected to embody HALOS principles in its own operation.
+  owner: northharbor-dev
+  maturity: experimental
+  adoptionModel: brownfield
+  specVersion: "1.0.0"
+
+spec:
+
+  principles:
+    humanPrimacy: required
+    attribution: encouraged
+    provenance: encouraged
+    transparency: required
+    conflictDisclosure: required
+    ideasAsAssets: optional
+    ethicalGuardrails: recommended
+    evolvingStandards: recommended
+    governanceThroughProposal: recommended
+    innovationWithAccountability: optional
+
+  agentModel:
+    existingAgents:
+      - name: ClaudeCode
+        role: development-assistant
+        description: >
+          Claude Code (Anthropic) is the primary authorized AI agent for this
+          repository. Its permitted operations are declared in
+          .claude/settings.local.json and include Jekyll build/serve, git
+          staging and pushing, and local health-check requests. No dedicated
+          CLAUDE.md or AGENTS.md behavior contract currently exists.
+
+    behavior:
+      overrideExistingRules: forbidden
+      silentConflictResolution: forbidden
+      humanEscalationRequiredFor:
+        - governance_changes
+        - destructive_actions
+        - policy_conflicts
+        - changes_to_existing_pages_content
+        - deployment_configuration_changes
+
+  governance:
+
+    decisionMaking:
+      humanApprovalRequired:
+        - policy_changes
+        - enforcement_changes
+        - workflow_modifications
+        - new_agent_authorization
+        - license_changes
+
+    conflictHandling:
+      required: true
+      format: structured
+      escalation: human_required
+
+  adoption:
+
+    mode: brownfield
+
+    phases:
+      - discover
+      - map
+      - flag
+      - propose
+      - escalate
+      - implement
+
+    currentPhase: discover
+
+    allowedActions:
+      additiveChanges: true
+      overlays: true
+      mappingDocs: true
+
+    restrictedActions:
+      breakingChanges: require_human_approval
+      enforcementChanges: require_human_approval
+
+  provenance:
+
+    capture:
+      conversations: disabled
+      artifacts: partial  # git history provides artifact-level provenance; no AI-labeling yet
+
+    storage:
+      primary: git
+      secondary: ""
+
+    requirements:
+      labelAIInvolvement: recommended
+      distinguishHumanVsAI: recommended
+
+  workflows:
+
+    pullRequests:
+      requireHumanReview: true
+      allowAIGeneratedContent: true
+      requireAttribution: recommended
+
+    ci:
+      halosChecks:
+        enabled: false
+        mode: advisory
+
+  compatibility:
+
+    existingMappings:
+      .claude/settings.local.json: agent_behavior_contract
+      .github/workflows/pages.yml: infrastructure_deployment
+      LICENSE: attribution_policy
+      README.md: project_documentation
+      _config.yml: project_configuration
+
+    conflicts:
+      - CONFLICT-001_no_agent_behavior_contract
+      - CONFLICT-002_no_ai_involvement_labeling
+      - CONFLICT-003_no_contribution_guidelines
+      - CONFLICT-004_no_decision_provenance
+      - CONFLICT-005_no_conflict_disclosure_mechanism
