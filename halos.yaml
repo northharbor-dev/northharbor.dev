@@ -1,0 +1,140 @@
+# HALOS Governance Profile
+# See: https://github.com/northharbor-dev/halos-spec/blob/main/adopt/GUIDE.md
+# Schema: spec/schema/halos-profile.schema.json
+
+apiVersion: halos.northharbor.dev/v1alpha1
+kind: HalosProfile
+
+metadata:
+  name: northharbor-dev-web
+  description: >
+    HALOS governance profile for the NorthHarbor Development public website
+    (northharbor.dev). A Jekyll static site deployed via GitHub Pages that
+    serves as the public face of NorthHarbor — an open source organization
+    dedicated to principled tools for human-AI collaboration.
+  owner: northharbor-dev
+  maturity: experimental
+  adoptionModel: brownfield
+
+spec:
+
+  principles:
+    # This repo is the public home of an org whose mission is human-AI
+    # collaboration. Human primacy is a founding commitment.
+    humanPrimacy: required
+
+    # Content is published under CC-BY-4.0. Ideas and creative works
+    # originating from contributors are treated as attributable assets.
+    ideasAsAssets: required
+
+    # CC-BY-4.0 license mandates attribution. HALOS attribution aligns
+    # naturally with this existing obligation.
+    attribution: required
+
+    # No formal provenance tracking exists today. Encouraged as a next step.
+    provenance: encouraged
+
+    # As the public face of NorthHarbor, transparency of AI involvement
+    # in content authoring is a core expectation.
+    transparency: required
+
+    # NorthHarbor's mission implicitly requires ethical guardrails.
+    ethicalGuardrails: encouraged
+
+    # The site documents evolving standards; the repo should model them.
+    evolvingStandards: recommended
+
+    # Governance changes to this site should follow proposal-based processes.
+    governanceThroughProposal: recommended
+
+    # Experimentation is welcome; accountability is expected.
+    innovationWithAccountability: recommended
+
+    # Conflicts between agents and existing policies must be surfaced explicitly.
+    conflictDisclosure: required
+
+  agentModel:
+    existingAgents:
+      - name: claude-code
+        role: development-assistant
+        description: >
+          Claude Code AI assistant configured via .claude/settings.local.json.
+          Assists with content authoring, site structure changes, Jekyll
+          configuration, and CI/CD tasks. Permissions are explicitly declared
+          in .claude/settings.local.json.
+
+    behavior:
+      overrideExistingRules: forbidden
+      silentConflictResolution: forbidden
+      humanEscalationRequiredFor:
+        - governance_changes
+        - destructive_actions
+        - policy_conflicts
+        - ownership_changes
+        - agent_permission_changes
+
+  governance:
+    decisionMaking:
+      humanApprovalRequired:
+        - policy_changes
+        - enforcement_changes
+        - workflow_modifications
+        - agent_permission_changes
+        - content_policy_changes
+    conflictHandling:
+      required: true
+      format: structured
+      escalation: human_required
+
+  adoption:
+    mode: brownfield
+    phases:
+      - discover
+      - map
+      - flag
+      - propose
+      - escalate
+      - implement
+    currentPhase: map
+    allowedActions:
+      additiveChanges: true
+      overlays: true
+      mappingDocs: true
+    restrictedActions:
+      breakingChanges: require_human_approval
+      enforcementChanges: require_human_approval
+
+  provenance:
+    capture:
+      conversations: disabled
+      artifacts: disabled
+    storage:
+      primary: ""
+      secondary: ""
+    requirements:
+      labelAIInvolvement: recommended
+      distinguishHumanVsAI: recommended
+
+  workflows:
+    pullRequests:
+      requireHumanReview: true
+      allowAIGeneratedContent: true
+      requireAttribution: recommended
+    ci:
+      halosChecks:
+        enabled: false
+        mode: advisory
+
+  compatibility:
+    existingMappings:
+      "LICENSE": "ideasAsAssets"
+      ".github/workflows/pages.yml": "infrastructure"
+      "_config.yml": "projectConfiguration"
+      ".claude/settings.local.json": "agentBehaviorContract"
+      "README.md": "projectDocumentation"
+    conflicts:
+      - "CONFLICT-001: No formal agent behavior contract (AGENTS.md / CLAUDE.md)"
+      - "CONFLICT-002: No AI content attribution policy in CI/CD"
+      - "CONFLICT-003: No CONTRIBUTING.md or governance process documentation"
+      - "CONFLICT-004: No CODEOWNERS or formal decision provenance"
+      - "CONFLICT-005: No provenance capture for AI-generated content"
