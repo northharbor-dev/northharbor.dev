@@ -23,7 +23,7 @@ layout: default
       badge="framework"
       url="https://halos.northharbor.dev"
       external=true
-      description="Human-Agent Living Operating System — a principled collaboration framework between humans and AI agents. Specification, governance, and public discussion." %}
+      description="Human–Agent Lineage and Origin Standard — a framework for attribution, provenance, and ethical accountability in human–agent collaboration. Built on stable Principles (v1.0) and a technical Provenance Spec (v0.1)." %}
   </div>
 </section>
 
